@@ -9,12 +9,11 @@ export const Header = styled.header`
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
 `
 
 export const Nav = styled.nav`
-  justify-items: center;
+  display: flex;
+  margin-top: 0.4rem;
   width: 100%;
+  justify-content: center;
 `
