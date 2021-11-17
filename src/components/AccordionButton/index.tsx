@@ -4,7 +4,7 @@ import { Button, Stack } from "@chakra-ui/react";
 import { ArrowDownIcon, ArrowUpIcon } from "@chakra-ui/icons";
 
 const AccordionButton: FC = ({ children }) => {
-  const { isToggled, handleToggle } = useContext(ContextApi);
+  const { isToggled, handleToggle, currentActiveId, itemId } = useContext(ContextApi);
   const handleButton = () => {
     handleToggle();
   };
@@ -18,7 +18,7 @@ const AccordionButton: FC = ({ children }) => {
     >
       <Stack direction="row" spacing={4} align="center">
         <span>{children}</span>
-        {isToggled ? <ArrowDownIcon /> : <ArrowUpIcon />}
+        {!isToggled ||  currentActiveId !== itemId ? <ArrowUpIcon /> : <ArrowDownIcon />}
       </Stack>
     </Button>
   );
