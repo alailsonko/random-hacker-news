@@ -1,12 +1,25 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Accordion from "../../components/Accordion";
 import AccordionButton from "../../components/AccordionButton";
 import AccordionItem from "../../components/AccordionItem";
 import AccordionPanel from "../../components/AccordionPanel";
 import { Header, Container, Nav, H2, WrapperNews, Card, Title } from "./styles";
-import { Button, Stack } from "@chakra-ui/react";
+import { Button, Stack, Link } from "@chakra-ui/react";
+import { Store } from "./../../store/store";
+import { getRandom10News } from "../../store/middlewares/News/news.actions";
+import { connect, useDispatch } from "react-redux";
 
-const Home: FC = () => {
+interface Props {
+  news: any;
+}
+
+const Home: FC<Props> = ({ news }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getRandom10News());
+  }, [getRandom10News]);
+  console.log(news);
+  if (news.loading) return <div>loading...</div>;
   return (
     <Container>
       <Nav>
@@ -14,49 +27,47 @@ const Home: FC = () => {
       </Nav>
       <WrapperNews>
         <Accordion>
-          <AccordionItem itemId="1">
-            <AccordionButton>
-              <Card>
-                <H2>#1 - 2021/09/21 - 22:12:45PM</H2>
-              </Card>
-            </AccordionButton>
-            <AccordionPanel>
-              <Stack direction="row" justifyContent="center" align="center">
-                <H2>validAturhr - karma score: 1234</H2>
-              </Stack>
-              <Title>
-                title: OAuth with Cloudflare workers on a statically generated
-                site
-              </Title>
-              <Stack
-                direction="row"
-                justifyContent="space-between"
-                align="center"
-              >
-                <H2>score: 123</H2>
-                <Button borderRadius="0" colorScheme="teal" variant="solid">
-                  see more
-                </Button>
-              </Stack>
-            </AccordionPanel>
-          </AccordionItem>
-          <AccordionItem itemId="2">
-            <AccordionButton>
-              <Card>
-                <H2>#2 - 2021/09/21 - 22:12:45PM</H2>
-              </Card>
-            </AccordionButton>
-            <AccordionPanel>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </AccordionPanel>
-          </AccordionItem>
+          {news.data.map((item: any, index: number) => (
+            <AccordionItem itemId={`${item.time}`} key={item.time}>
+              <AccordionButton>
+                <Card>
+                  <H2>
+                    #{index + 1} -{" "}
+                    {new Date(item.time).toLocaleDateString("en-US")} -{" "}
+                    {new Date(item.time).toLocaleTimeString("en-US")}
+                  </H2>
+                </Card>
+              </AccordionButton>
+              <AccordionPanel>
+                <Stack direction="row" justifyContent="center" align="center">
+                  <H2>
+                    {item.by} - karma score: {item.user.karma}
+                  </H2>
+                </Stack>
+                <Title>title: {item.title}</Title>
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  align="center"
+                >
+                  <H2>score: {item.score}</H2>
+                  <Link href={item.url} isExternal>
+                    <Button borderRadius="0" colorScheme="teal" variant="solid">
+                      see more
+                    </Button>
+                  </Link>
+                </Stack>
+              </AccordionPanel>
+            </AccordionItem>
+          ))}
         </Accordion>
       </WrapperNews>
     </Container>
   );
 };
 
-export default Home;
+const mapState = (state: Store) => ({
+  news: state.news,
+});
+
+export default connect(mapState)(Home);
