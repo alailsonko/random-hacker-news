@@ -33,8 +33,8 @@ const Home: FC<Props> = ({ news }) => {
                 <Card>
                   <H2>
                     #{index + 1} -{" "}
-                    {new Date(item.time).toLocaleDateString("en-US")} -{" "}
-                    {new Date(item.time).toLocaleTimeString("en-US")}
+                    {new Date(item.time * 1000).toLocaleDateString("en-US")} -{" "}
+                    {new Date(item.time * 1000).toLocaleTimeString("en-US")}
                   </H2>
                 </Card>
               </AccordionButton>
