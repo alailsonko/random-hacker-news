@@ -21,6 +21,8 @@ export const Title = styled.p`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-items: center;
+  align-items: center;
 `
 
 export const Nav = styled.nav`
@@ -30,6 +32,12 @@ export const Nav = styled.nav`
   justify-content: center;
 `
 export const WrapperNews = styled.section`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  @media(min-width: 800px) {
+    width: 50%;
+  }
 `
 export const Card = styled.div`
   display: flex;
