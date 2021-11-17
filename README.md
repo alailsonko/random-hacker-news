@@ -1,3 +1,13 @@
+# access the app >> [LINK OF DEPLOYED APP](https://jolly-jones-b46000.netlify.app/.)
+
+# preview 
+## mobile
+![mobile](./docs/mobile.png)
+## desktop
+![desktop](./docs/desktop.png)
+## mock
+![figma-mock](./docs/figma-mock.png)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
