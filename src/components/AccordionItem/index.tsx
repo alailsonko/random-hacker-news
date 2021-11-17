@@ -1,15 +1,18 @@
-import { FC, createContext, useState } from "react";
+import { FC, createContext, useState, useContext } from "react";
+import { ContextApiAccordion } from "../Accordion";
 import { Container } from "./styles";
 
 type AccordionType = {
   isToggled: boolean;
-  currentActiveId: string;
+  currentActiveId: string
+  itemId: string
   handleToggle: () => void;
 };
 
 export const ContextApi = createContext<AccordionType>({
   isToggled: false,
   currentActiveId: '',
+  itemId: '',
   handleToggle: () => null,
 });
 
@@ -19,13 +22,14 @@ type Props = {
 
 const AccordionItem: FC<Props> = ({ children, itemId }) => {
   const [isToggled, setIstoggled] = useState(false);
-  const [currentActiveId, setCurrentActiveId] = useState('');
+  const { currentActiveId, handleCurrentItem } = useContext(ContextApiAccordion)
   const initialValue: AccordionType = {
     isToggled: isToggled,
-    currentActiveId: currentActiveId,
+    currentActiveId,
+    itemId,
     handleToggle: () => {
+      handleCurrentItem(itemId)
       setIstoggled(!isToggled);
-      setCurrentActiveId(itemId)
     },
   };
   return (
