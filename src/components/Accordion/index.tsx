@@ -21,10 +21,9 @@ const Accordion: FC = ({ children }) => {
   };
   return (
     <ContextApiAccordion.Provider value={initialValue}>
-      {" "}
       <Stack direction="column" spacing={4}>
         {children}
-      </Stack>{" "}
+      </Stack>
     </ContextApiAccordion.Provider>
   );
 };
