@@ -12,6 +12,11 @@ export const H2 = styled.h2`
  font-weight: 400;
  font-size: 18px;
 `
+export const Title = styled.p`
+ font-family: 'Roboto Slab', serif;
+ font-weight: lighter;
+ font-size: 18px;
+`
 
 export const Container = styled.div`
   display: flex;
